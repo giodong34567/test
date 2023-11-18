@@ -85,7 +85,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        self.tinhTien.clicked.connect(self.db_connect)
+        self.tinhTien.clicked.connect(self.tt)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -121,36 +121,7 @@ class Ui_MainWindow(object):
         tienGiamGia = int(self.giamGia.text()) if self.giamGia.text() != "" else 0
         sum -= tienGiamGia
         self.tienTra.setText(str(sum))
-    def db_connect(self):
-        try:
-            db = mdb.connect(
-                host="localhost",
-                user="root",
-                password="",  # Thay bằng mật khẩu MySQL của bạn
-                database="banve"
-            )
-            cursor = db.cursor()
-
-            # Thực hiện truy vấn SQL để lấy dữ liệu từ bảng phongve
-            cursor.execute("SELECT * FROM phongve")
-            data = cursor.fetchall()
-
-            # Lấy giá trị từ cột 'Ve' của mỗi dòng dữ liệu và nối chúng thành một chuỗi
-            ve_values = ', '.join(str(row[1]) for row in data)
-
-            # Hiển thị giá trị trong QLineEdit
-            self.hoVaTen.setText(ve_values)
-
-            msg = QtWidgets.QMessageBox()
-            msg.setInformativeText(f"Connect Success. Data loaded: {ve_values}")
-            msg.exec()
-
-            db.close()
-        except Exception as e:
-            msg = QtWidgets.QMessageBox()
-            msg.setInformativeText(f"Connect fail. Error: {e}")
-            msg.exec()
-
+    
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
