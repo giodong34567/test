@@ -252,7 +252,7 @@ class Ui_MainWindow(object):
 
             # Đóng kết nối
             db.close()
-
+            x = 1
             # Hiển thị thông báo thành công
             msg = QtWidgets.QMessageBox()
             msg.setInformativeText("Thêm sinh viên thành công.")
